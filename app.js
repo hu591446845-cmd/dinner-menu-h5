@@ -80,6 +80,56 @@
           "照烧鸡腿",
         ],
       },
+      riverFish: {
+        label: "河鱼",
+        methods: [
+          "红烧河鱼",
+          "清蒸河鱼",
+          "酸菜河鱼",
+          "豆瓣河鱼",
+          "葱姜河鱼",
+        ],
+      },
+      seaFish: {
+        label: "海鱼",
+        methods: [
+          "清蒸海鱼",
+          "香煎海鱼",
+          "红烧海鱼",
+          "蒜香烤海鱼",
+          "番茄海鱼",
+        ],
+      },
+      shrimp: {
+        label: "虾",
+        methods: [
+          "白灼虾",
+          "蒜蓉粉丝虾",
+          "油焖大虾",
+          "椒盐虾",
+          "番茄虾仁",
+        ],
+      },
+      shellfish: {
+        label: "贝类",
+        methods: [
+          "蒜蓉粉丝贝类",
+          "豉汁蒸贝类",
+          "辣炒贝类",
+          "葱姜炒贝类",
+          "清蒸贝类",
+        ],
+      },
+      squid: {
+        label: "鱿鱼",
+        methods: [
+          "爆炒鱿鱼",
+          "酱爆鱿鱼",
+          "椒盐鱿鱼",
+          "青椒鱿鱼",
+          "铁板鱿鱼",
+        ],
+      },
     },
     vegetable: {
       carrot: {
@@ -297,7 +347,7 @@
   }
 
   function hasSauceForMethod(method) {
-    return /汤|咖喱|番茄|炖|焖|煮|水煮|红烧|牛腩|排骨/.test(method || "");
+    return /汤|咖喱|番茄|炖|焖|煮|水煮|红烧|牛腩|排骨|酸菜|豆瓣|清蒸|蒜蓉粉丝|油焖|豉汁|酱爆/.test(method || "");
   }
 
   function getRecipeForDish(dish) {
@@ -320,6 +370,42 @@
       return `番茄炒出汁，加入${ingredient}翻炒，加少量水煮到入味，最后加盐调味。`;
     }
 
+    if (method.includes("清蒸")) {
+      return `${ingredient}处理干净，铺姜片和葱段，上锅蒸熟，出锅后淋蒸鱼豉油和少量热油。`;
+    }
+
+    if (method.includes("酸菜")) {
+      return `酸菜先炒香，加水煮出汤底，放入${ingredient}煮熟，最后加盐和白胡椒调味。`;
+    }
+
+    if (method.includes("豆瓣")) {
+      return `豆瓣酱和姜蒜炒香，加入${ingredient}轻轻翻匀，加少量水烧到入味后收汁。`;
+    }
+
+    if (method.includes("蒜蓉粉丝")) {
+      return `粉丝泡软垫底，铺上${ingredient}和蒜蓉酱，上锅蒸熟，出锅撒葱花。`;
+    }
+
+    if (method.includes("白灼")) {
+      return `水里加姜片和葱段煮开，放入${ingredient}烫熟，捞出后搭配生抽或蘸料。`;
+    }
+
+    if (method.includes("油焖")) {
+      return `${ingredient}煎到变色，加入生抽、少量糖和一点水焖入味，最后大火收汁。`;
+    }
+
+    if (method.includes("豉汁")) {
+      return `豆豉、蒜末和少量生抽调成豉汁，淋在${ingredient}上蒸熟或快炒入味。`;
+    }
+
+    if (method.includes("椒盐")) {
+      return `${ingredient}擦干水分后煎香或炸香，加入椒盐、葱蒜末快速翻匀。`;
+    }
+
+    if (method.includes("香煎")) {
+      return `${ingredient}擦干水分，热锅少油两面煎香，撒盐和黑胡椒调味。`;
+    }
+
     if (method.includes("糖醋")) {
       return `${ingredient}切好后裹薄淀粉煎香，倒入糖醋汁翻匀，收汁后出锅。`;
     }
@@ -338,6 +424,10 @@
 
     if (method.includes("回锅") || method.includes("小炒")) {
       return `${ingredient}切片煸出香味，加入配菜和调味料大火翻炒，炒匀入味后出锅。`;
+    }
+
+    if (method.includes("爆炒") || method.includes("辣炒") || method.includes("葱姜") || method.includes("青椒") || method.includes("铁板")) {
+      return `${ingredient}处理干净并沥干水分，热锅大火快炒，加入葱姜或配菜，调味后快速出锅。`;
     }
 
     if (method.includes("炖") || method.includes("焖") || method.includes("煮")) {
@@ -376,6 +466,25 @@
         return 8;
       }
       return 15;
+    }
+
+    if (method.includes("酸菜河鱼")) {
+      return 30;
+    }
+    if (method.includes("红烧河鱼") || method.includes("红烧海鱼") || method.includes("豆瓣河鱼") || method.includes("蒜香烤海鱼")) {
+      return 25;
+    }
+    if (method.includes("油焖大虾") || method.includes("蒜蓉粉丝虾") || method.includes("蒜蓉粉丝贝类")) {
+      return 18;
+    }
+    if (method.includes("清蒸河鱼") || method.includes("清蒸海鱼") || method.includes("清蒸贝类") || method.includes("香煎海鱼") || method.includes("番茄海鱼")) {
+      return 15;
+    }
+    if (method.includes("白灼虾")) {
+      return 8;
+    }
+    if (method.includes("虾") || method.includes("贝类") || method.includes("鱿鱼")) {
+      return 12;
     }
 
     if (method.includes("红烧")) {
@@ -453,6 +562,13 @@
     return hasSauceForMethod(dish.method);
   }
 
+  function menuHasDryAndWet(menu) {
+    const hasWetDish = menu.some((dish) => dishHasSauce(dish));
+    const hasDryDish = menu.some((dish) => !dishHasSauce(dish));
+
+    return hasWetDish && hasDryDish;
+  }
+
   function createInitialState(people) {
     const counts = calculateDishCounts(people);
     const quantities = calculateQuantityPlan(counts.people, counts);
@@ -465,6 +581,119 @@
       currentIngredient: null,
       soupPromptAnswered: false,
       menu: [],
+    };
+  }
+
+  function getRandomIndex(length, random = Math.random) {
+    if (length < 1) {
+      return -1;
+    }
+
+    const rawValue = Number(random());
+    const safeValue = Number.isFinite(rawValue)
+      ? Math.max(0, Math.min(rawValue, 0.999999))
+      : 0;
+
+    return Math.floor(safeValue * length);
+  }
+
+  function createDishFromChoice(state, type, ingredientKey, method) {
+    const option = DISH_OPTIONS[type]?.[ingredientKey];
+    if (!option || !option.methods.includes(method)) {
+      throw new Error("Unknown dish choice.");
+    }
+
+    const quantityGrams =
+      type === "meat"
+        ? state.quantities.meatPerDishGrams
+        : state.quantities.vegetablePerDishGrams;
+    const dish = {
+      type,
+      ingredientKey,
+      ingredient: option.label,
+      method,
+      quantityGrams,
+      hasSauce: hasSauceForMethod(method),
+    };
+
+    return {
+      ...dish,
+      recipe: getRecipeForDish(dish),
+      cookingTimeMinutes: getCookingTimeMinutes(dish),
+    };
+  }
+
+  function listDishCandidates(state, type, saucePreference) {
+    return Object.entries(DISH_OPTIONS[type])
+      .flatMap(([ingredientKey, option]) =>
+        option.methods.map((method) =>
+          createDishFromChoice(state, type, ingredientKey, method),
+        ),
+      )
+      .filter((dish) =>
+        typeof saucePreference === "boolean"
+          ? dishHasSauce(dish) === saucePreference
+          : true,
+      );
+  }
+
+  function pickRandomDish(state, type, random = Math.random, saucePreference) {
+    const candidates = listDishCandidates(state, type, saucePreference);
+    const candidateIndex = getRandomIndex(candidates.length, random);
+
+    return candidates[candidateIndex] || null;
+  }
+
+  function balanceDryAndWetDishes(state, menu, random = Math.random) {
+    if (menuHasDryAndWet(menu)) {
+      return menu;
+    }
+
+    const needsWetDish = !menu.some((dish) => dishHasSauce(dish));
+    const replacementIndexes = menu
+      .map((dish, index) => ({ dish, index }))
+      .sort(() => random() - 0.5);
+
+    for (const { dish, index } of replacementIndexes) {
+      const replacement = pickRandomDish(
+        state,
+        dish.type,
+        random,
+        needsWetDish,
+      );
+
+      if (replacement) {
+        const nextMenu = menu.map((item, itemIndex) =>
+          itemIndex === index ? replacement : item,
+        );
+
+        if (menuHasDryAndWet(nextMenu)) {
+          return nextMenu;
+        }
+      }
+    }
+
+    return menu;
+  }
+
+  function generateRandomMenuState(people, random = Math.random) {
+    const nextState = createInitialState(people);
+    const menu = [];
+
+    for (let index = 0; index < nextState.counts.meat; index += 1) {
+      menu.push(pickRandomDish(nextState, "meat", random));
+    }
+
+    for (let index = 0; index < nextState.counts.vegetable; index += 1) {
+      menu.push(pickRandomDish(nextState, "vegetable", random));
+    }
+
+    return {
+      ...nextState,
+      currentType: null,
+      currentIngredient: null,
+      soupPromptAnswered: false,
+      menu: balanceDryAndWetDishes(nextState, menu, random),
     };
   }
 
@@ -581,12 +810,80 @@
     }
 
     let state = null;
+    let history = [];
     let toast = "";
 
-    function setState(nextState) {
-      state = nextState;
+    function cloneStateSnapshot(value) {
+      if (!value) {
+        return null;
+      }
+
+      return {
+        ...value,
+        counts: { ...value.counts },
+        quantities: { ...value.quantities },
+        menu: value.menu.map((dish) => ({ ...dish })),
+      };
+    }
+
+    function setState(nextState, options = {}) {
+      if (options.trackHistory !== false) {
+        history.push(cloneStateSnapshot(state));
+      }
+
+      state = cloneStateSnapshot(nextState);
       toast = "";
       render();
+    }
+
+    function canGoBack() {
+      return history.length > 0;
+    }
+
+    function goBack() {
+      if (!canGoBack()) {
+        return;
+      }
+
+      state = history.pop();
+      toast = "";
+      render();
+    }
+
+    function resetApp() {
+      state = null;
+      history = [];
+      toast = "";
+      render();
+    }
+
+    function randomizeMenu() {
+      if (!state) {
+        return;
+      }
+
+      setState(generateRandomMenuState(state.people));
+    }
+
+    function renderNavigationButtons(randomLabel = "随机搭配") {
+      const backButton = canGoBack()
+        ? '<button class="ghost-button" type="button" data-action="back">返回上一步</button>'
+        : "";
+
+      return `
+        ${backButton}
+        <button class="secondary-button" type="button" data-action="random">${randomLabel}</button>
+      `;
+    }
+
+    function bindNavigationActions() {
+      document.querySelectorAll('[data-action="back"]').forEach((button) => {
+        button.addEventListener("click", goBack);
+      });
+
+      document.querySelectorAll('[data-action="random"]').forEach((button) => {
+        button.addEventListener("click", randomizeMenu);
+      });
     }
 
     function renderMenuList(menu) {
@@ -722,6 +1019,9 @@
           <h2 class="step-title">${title}</h2>
           <p class="summary">今晚 ${state.people} 人，共 ${state.counts.total} 道菜。本道建议采购量：${escapeHtml(stepQuantityText)}。</p>
           <div class="option-grid">${optionsHtml}</div>
+          <div class="actions flow-actions">
+            ${renderNavigationButtons()}
+          </div>
         </section>
 
         <section class="panel menu-preview">
@@ -731,6 +1031,8 @@
       `;
 
       if (isChoosingIngredient) {
+        bindNavigationActions();
+
         document.querySelectorAll("[data-ingredient]").forEach((button) => {
           button.addEventListener("click", () => {
             setState({
@@ -742,23 +1044,21 @@
         return;
       }
 
+      bindNavigationActions();
+
       document.querySelectorAll("[data-method-index]").forEach((button) => {
         button.addEventListener("click", () => {
           const option = currentOptions[state.currentIngredient];
           const method = option.methods[Number(button.dataset.methodIndex)];
-          const dish = {
-            type: currentType,
-            ingredientKey: state.currentIngredient,
-            ingredient: option.label,
-            method,
-            quantityGrams,
-            hasSauce: hasSauceForMethod(method),
-          };
-          const stateWithDish = addDish(state, {
-            ...dish,
-            recipe: getRecipeForDish(dish),
-            cookingTimeMinutes: getCookingTimeMinutes(dish),
-          });
+          const stateWithDish = addDish(
+            state,
+            createDishFromChoice(
+              state,
+              currentType,
+              state.currentIngredient,
+              method,
+            ),
+          );
           const nextType = getNextTypeForMenu(stateWithDish);
 
           setState({
@@ -786,8 +1086,9 @@
           <h2 class="step-title">今天的饭菜有点干，要加一道汤吗？</h2>
           <p class="summary">当前选择的菜都没有明显汤水。可以加一道简单汤，让这顿饭更下饭。</p>
           <div class="option-grid soup-grid">${soupOptionsHtml}</div>
-          <div class="actions">
+          <div class="actions flow-actions">
             <button id="skip-soup" class="ghost-button" type="button">不加汤，直接生成菜单</button>
+            ${renderNavigationButtons()}
           </div>
         </section>
 
@@ -808,11 +1109,13 @@
       });
 
       document.getElementById("skip-soup").addEventListener("click", () => {
-        setState({
-          ...state,
-          soupPromptAnswered: true,
-        });
+          setState({
+            ...state,
+            soupPromptAnswered: true,
+          });
       });
+
+      bindNavigationActions();
     }
 
     async function copyMenuText(text) {
@@ -858,19 +1161,23 @@
       const menuText = formatMenuText(state);
       const soupCount = countDishesByType(state, "soup");
       const totalDishes = state.counts.total + soupCount;
+      const balanceSummary = menuHasDryAndWet(state.menu)
+        ? "菜单里已经同时包含有汤水和偏干的菜。"
+        : "如果想换成干湿都有的组合，可以点重新随机。";
 
       app.innerHTML = `
         <section class="panel">
           <h2 class="final-title">今晚菜单定好了</h2>
-          <p class="summary">${state.people} 人，${totalDishes} 道菜，按你的选择顺序生成。</p>
+          <p class="summary">${state.people} 人，${totalDishes} 道菜，按你的选择顺序生成。${balanceSummary}</p>
           <div class="quantity-summary">
             <p>肉类总量：${formatQuantityLabel(state.quantities.meatTotalGrams, { approximate: false })}</p>
             <p>蔬菜总量：${formatQuantityLabel(state.quantities.vegetableTotalGrams, { approximate: false })}</p>
           </div>
           ${renderMenuList(state.menu)}
-          <div class="actions">
+          <div class="actions flow-actions">
             <button id="copy-menu" class="primary-button" type="button">复制菜单</button>
             <button id="download-menu" class="secondary-button" type="button">下载文本</button>
+            ${renderNavigationButtons("重新随机")}
             <button id="restart" class="ghost-button" type="button">重新开始</button>
           </div>
           ${toast ? `<p class="toast">${escapeHtml(toast)}</p>` : ""}
@@ -890,10 +1197,10 @@
       });
 
       document.getElementById("restart").addEventListener("click", () => {
-        state = null;
-        toast = "";
-        render();
+        resetApp();
       });
+
+      bindNavigationActions();
     }
 
     function render() {
@@ -935,18 +1242,21 @@
     calculateQuantityPlan,
     countDishesByType,
     createInitialState,
+    createDishFromChoice,
     createSoupDish,
     dishHasSauce,
     formatDishQuantityText,
     formatMenuText,
     formatNaturalQuantityLabel,
     formatQuantityLabel,
+    generateRandomMenuState,
     getCookingOrder,
     getCookingTimeMinutes,
     getNextTypeForMenu,
     getRecipeForDish,
     hasSauceForMethod,
     isMenuComplete,
+    menuHasDryAndWet,
     menuNeedsSoupPrompt,
   };
 });

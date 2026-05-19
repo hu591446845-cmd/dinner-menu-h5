@@ -300,6 +300,10 @@ h1 {
   margin-top: 18px;
 }
 
+.actions.flow-actions {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+}
+
 .primary-button,
 .secondary-button,
 .ghost-button {
@@ -358,6 +362,10 @@ h1 {
   .people-row,
   .actions {
     grid-template-columns: 1fr auto;
+  }
+
+  .actions.flow-actions {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   .option-grid {
