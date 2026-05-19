@@ -410,6 +410,25 @@
     };
   }
 
+  function getPeopleCountWarning(people) {
+    const rawValue = String(people ?? "").trim();
+    const peopleCount = Number(rawValue);
+
+    if (rawValue === "" || !Number.isInteger(peopleCount) || peopleCount < 0) {
+      return "请输入 1 或更大的整数人数";
+    }
+
+    if (peopleCount === 0) {
+      return "没人吃什么饭";
+    }
+
+    if (peopleCount >= 8) {
+      return "家里坐不下那么多人";
+    }
+
+    return "";
+  }
+
   function calculateQuantityPlan(people, counts) {
     const peopleCount = Number(people);
 
@@ -877,6 +896,23 @@
     };
   }
 
+  function getConsecutiveIngredientNotice(menu, dish) {
+    if (!dish || !["meat", "vegetable"].includes(dish.type) || !dish.ingredientKey) {
+      return "";
+    }
+
+    const recentDishes = [...menu, dish].slice(-3);
+    const isSameIngredient =
+      recentDishes.length === 3 &&
+      recentDishes.every(
+        (item) =>
+          item.type === dish.type &&
+          item.ingredientKey === dish.ingredientKey,
+      );
+
+    return isSameIngredient ? `没想到你这么喜欢吃${dish.ingredient}` : "";
+  }
+
   function countDishesByType(state, type) {
     return state.menu.filter((dish) => dish.type === type).length;
   }
@@ -1038,6 +1074,12 @@
       setState(generateRandomMenuState(state.people));
     }
 
+    function showPopup(message) {
+      if (message && typeof window !== "undefined" && typeof window.alert === "function") {
+        window.alert(message);
+      }
+    }
+
     function renderNavigationButtons(randomLabel = "随机搭配") {
       const backButton = canGoBack()
         ? '<button class="ghost-button" type="button" data-action="back">返回上一步</button>'
@@ -1114,6 +1156,14 @@
 
       form.addEventListener("submit", (event) => {
         event.preventDefault();
+
+        const peopleWarning = getPeopleCountWarning(input.value);
+        if (peopleWarning) {
+          error.textContent = peopleWarning;
+          error.hidden = false;
+          showPopup(peopleWarning);
+          return;
+        }
 
         try {
           const nextState = createInitialState(input.value);
@@ -1223,14 +1273,19 @@
         button.addEventListener("click", () => {
           const option = currentOptions[state.currentIngredient];
           const method = option.methods[Number(button.dataset.methodIndex)];
+          const selectedDish = createDishFromChoice(
+            state,
+            currentType,
+            state.currentIngredient,
+            method,
+          );
+          const consecutiveNotice = getConsecutiveIngredientNotice(
+            state.menu,
+            selectedDish,
+          );
           const stateWithDish = addDish(
             state,
-            createDishFromChoice(
-              state,
-              currentType,
-              state.currentIngredient,
-              method,
-            ),
+            selectedDish,
           );
           const nextType = getNextTypeForMenu(stateWithDish);
 
@@ -1239,6 +1294,8 @@
             currentType: nextType,
             currentIngredient: null,
           });
+
+          showPopup(consecutiveNotice);
         });
       });
     }
@@ -1426,7 +1483,9 @@
     generateRandomMenuState,
     getCookingOrder,
     getCookingTimeMinutes,
+    getConsecutiveIngredientNotice,
     getNextTypeForMenu,
+    getPeopleCountWarning,
     getRecipeForDish,
     hasSauceForMethod,
     isMenuComplete,
